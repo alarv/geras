@@ -1,64 +1,10 @@
 import 'phaser';
-import { GerasPlayer } from './domain/player';
+import { Level1 } from './levels/level1';
+import SceneManager = Phaser.Scenes.SceneManager;
+import { Level2 } from './levels/level2';
+import GameConfig = Phaser.Types.Core.GameConfig;
 
-const PLAYER_KEY = 'dude';
-
-export default class GerasScene extends Phaser.Scene {
-    private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
-    private gerasPlayer: GerasPlayer;
-    constructor() {
-        super('demo');
-    }
-
-    preload() {
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('ground', 'assets/platform.png');
-        this.load.image('star', 'assets/star.png');
-        this.load.image('bomb', 'assets/bomb.png');
-        this.load.spritesheet(PLAYER_KEY, 'assets/dude.png', {
-            frameWidth: 32,
-            frameHeight: 48,
-        });
-    }
-
-    create() {
-        this.add.image(400, 300, 'sky');
-
-        const platforms = this.physics.add.staticGroup();
-
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-        platforms.create(600, 400, 'ground');
-        platforms.create(50, 250, 'ground');
-        platforms.create(750, 220, 'ground');
-
-        this.gerasPlayer = new GerasPlayer(
-            this.physics,
-            this.anims,
-            PLAYER_KEY
-        );
-
-        this.physics.add.collider(this.gerasPlayer.player, platforms);
-
-        this.cursors = this.input.keyboard.createCursorKeys();
-    }
-
-    update() {
-        if (this.cursors.left.isDown) {
-            this.gerasPlayer.animateLeft();
-        } else if (this.cursors.right.isDown) {
-            this.gerasPlayer.animateRight();
-        } else {
-            this.gerasPlayer.stayStill();
-        }
-
-        if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
-            this.gerasPlayer.animateJump();
-        }
-    }
-}
-
-const config = {
+const config: GameConfig = {
     type: Phaser.AUTO,
     backgroundColor: '#125555',
     width: 800,
@@ -70,7 +16,13 @@ const config = {
             debug: false,
         },
     },
-    scene: GerasScene,
+    scene: [Level1, Level2],
 };
-
 const game = new Phaser.Game(config);
+// sceneManager.add('level2', new Level2());
+game.scene.start('level1');
+
+setTimeout(() => {
+    game.scene.remove('level1');
+    game.scene.start('level2');
+}, 5000);

@@ -1,8 +1,15 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES2018",
+        "lib": ["ES2018"],
         "moduleResolution": "node"
     },
+    "typeRoots": [
+        "./node_modules/phaser/types"
+    ],
+    "types": [
+        "Phaser"
+    ],
     "include": [
         "./src/**/*"
     ]
