@@ -1,8 +1,8 @@
 import 'phaser';
 import { Level1 } from './levels/level1';
-import SceneManager = Phaser.Scenes.SceneManager;
 import { Level2 } from './levels/level2';
 import GameConfig = Phaser.Types.Core.GameConfig;
+import { IntroLevel1 } from './levels/intros/intro-level1';
 
 const config: GameConfig = {
     type: Phaser.AUTO,
@@ -16,13 +16,7 @@ const config: GameConfig = {
             debug: false,
         },
     },
-    scene: [Level1, Level2],
+    scene: [IntroLevel1, Level1, Level2],
 };
 const game = new Phaser.Game(config);
-// sceneManager.add('level2', new Level2());
-game.scene.start('level1');
-
-setTimeout(() => {
-    game.scene.remove('level1');
-    game.scene.start('level2');
-}, 5000);
+game.scene.start('intro-level1');
