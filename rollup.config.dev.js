@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
 import typescript from 'rollup-plugin-typescript2';
+import copy from "rollup-plugin-copy-assets";
 
 export default {
 
@@ -14,17 +15,19 @@ export default {
     //  Where the build file is to be generated.
     //  Most games being built for distribution can use iife as the module type.
     //  You can also use 'umd' if you need to ingest your game into another system.
-    //  The 'intro' property can be removed if using Phaser 3.21 or above. Keep it for earlier versions.
     output: {
         file: './dist/game.js',
         name: 'MyGame',
         format: 'iife',
         sourcemap: true,
-        intro: 'var global = window;'
     },
 
     plugins: [
-
+        copy({
+            assets: [
+                "src/assets",
+            ],
+        }),
         //  Toggle the booleans here to enable / disable Phaser 3 features:
         replace({
             'typeof CANVAS_RENDERER': JSON.stringify(true),
@@ -54,7 +57,10 @@ export default {
         }),
 
         //  See https://www.npmjs.com/package/rollup-plugin-typescript2 for config options
-        typescript(),
+        typescript({
+            typescript: require('typescript'),
+            objectHashIgnoreUnknownHack: true,
+        }),
 
         //  See https://www.npmjs.com/package/rollup-plugin-serve for config options
         serve({

@@ -29,7 +29,7 @@ by default).
 ## Configuring Rollup
 
 * Edit the file `rollup.config.dev.js` to edit the development build.
-* Edit the file `rollup.config.dist.js` to edit the distribution build.
+* Edit the file `rollup.config.prod.js` to edit the distribution build.
 
 You will find lots of comments inside the rollup config files to help you do this.
 

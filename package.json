@@ -5,8 +5,8 @@
     "main": "src/game.ts",
     "scripts": {
         "dev": "rollup --config rollup.config.dev.js",
-        "build": "rollup --config rollup.config.dist.js",
-        "watch": "rollup --watch --config rollup.config.dev.js"
+        "watch": "rollup --watch --config rollup.config.dev.js",
+        "build": "rollup --config rollup.config.prod.js"
     },
     "repository": {
         "type": "git",
@@ -25,6 +25,7 @@
         "prettier": "^2.0.4",
         "rollup": "^1.29.0",
         "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-copy-assets": "^2.0.1",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-serve": "^1.0.1",
         "rollup-plugin-typescript2": "^0.25.3",
