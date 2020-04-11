@@ -50,6 +50,7 @@ export class Level3 extends Phaser.Scene {
                 stepX: 70,
             },
             bounceY: Phaser.Math.FloatBetween(0.4, 0.8),
+            velocityX: -50,
         });
 
         this.physics.add.collider(coronavirus, platforms);
