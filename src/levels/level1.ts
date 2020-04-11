@@ -18,7 +18,7 @@ export class Level1 extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/background.png');
         this.load.image('ground', 'assets/tile-middle.png');
-        this.load.image('star', 'assets/star.png');
+        this.load.image('baby-bottle', 'assets/baby-bottle.png');
 
         this.load.spritesheet(PLAYER_KEY, 'assets/dude.png', {
             frameWidth: 32,
@@ -42,8 +42,8 @@ export class Level1 extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        const star = this.physics.add.group({
-            key: 'star',
+        const babyBottle = this.physics.add.group({
+            key: 'baby-bottle',
             setXY: {
                 x: WORLD_CONSTANTS.WIDTH - WORLD_CONSTANTS.TILE_WIDTH,
                 y: 0,
@@ -52,12 +52,12 @@ export class Level1 extends Phaser.Scene {
             bounceY: Phaser.Math.FloatBetween(0.4, 0.8),
         });
 
-        this.physics.add.collider(star, platforms);
+        this.physics.add.collider(babyBottle, platforms);
 
         this.physics.add.overlap(
             this.gerasPlayer.player,
-            star,
-            this.collectStar,
+            babyBottle,
+            this.collectIcon,
             null,
             this,
         );
@@ -77,7 +77,7 @@ export class Level1 extends Phaser.Scene {
         }
     }
 
-    private collectStar(player, star) {
+    private collectIcon(player, star) {
         star.disableBody(true, true);
         this.scene.start(IntroLevel2.key);
     }
