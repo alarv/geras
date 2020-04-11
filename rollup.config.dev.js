@@ -28,6 +28,8 @@ export default {
         copy({
             assets: [
                 "src/assets",
+                "src/index.html",
+                "src/style.css",
             ],
         }),
         //  Toggle the booleans here to enable / disable Phaser 3 features:
