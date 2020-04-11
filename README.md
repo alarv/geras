@@ -18,4 +18,4 @@ Geras is a game about changing made with Phaser 3.
 ## Writing Code
 
 After cloning the repo, run `npm install` from your project directory. Then, you can start the local development
-server by running `npm run watch`. The first time you run this you should see the following demo run:
+server by running `npm run watch`. 
