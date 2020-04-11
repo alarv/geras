@@ -1,6 +1,6 @@
 # Geras
 
-Geras is a game about changing made with Phaser 3.
+Geras /ˈdʒɪərəs/ (Ancient Greek: Γῆρας, romanized: Gễras, meaning Ageing) is a game about ageing made with Phaser 3.
 
 ## Requirements
 
