@@ -1,24 +1,22 @@
-import { Level1 } from '../level1';
-import { WORLD_CONSTANTS } from '../../constants/world-constants';
+import { WORLD_CONSTANTS } from '../constants/world-constants';
 
-export class IntroLevel1 extends Phaser.Scene {
-    public static key: string = 'intro-level1';
+export class TheEnd extends Phaser.Scene {
+    public static key: string = 'the-end';
+    private readonly _animationDuration = 3000;
 
     constructor() {
-        super(IntroLevel1.key);
+        super(TheEnd.key);
     }
-
-    private readonly _animationDuration = 3000;
 
     create() {
         this.add
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'THE END\nYou died \nfrom coronavirus',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 74,
+                    fontSize: 70,
                     color: '#F4A259',
                     align: 'center',
                 },
@@ -31,10 +29,10 @@ export class IntroLevel1 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'THE END\nYou died \nfrom coronavirus',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 74,
+                    fontSize: 70,
                     color: '#5B8E7D',
                     align: 'center',
                 },
@@ -48,7 +46,7 @@ export class IntroLevel1 extends Phaser.Scene {
             this.input.once(
                 'pointerdown',
                 () => {
-                    this.scene.start(Level1.key);
+                    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
                 },
                 this,
             );

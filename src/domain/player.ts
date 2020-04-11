@@ -1,18 +1,21 @@
 export class GerasPlayer {
     private readonly _player: Phaser.Physics.Arcade.Sprite;
+    public get player(): Phaser.Physics.Arcade.Sprite {
+        return this._player;
+    }
 
     constructor(
         playerKey: string,
         physics: Phaser.Physics.Arcade.ArcadePhysics,
         anims: Phaser.Animations.AnimationManager,
         platforms: Phaser.Physics.Arcade.StaticGroup,
-        gravity: number = 300,
+        gravity: number = 0,
     ) {
         this._player = physics.add.sprite(100, 450, playerKey);
         this._player.setBounce(0.2);
         this._player.setCollideWorldBounds(true);
         physics.add.collider(this._player, platforms);
-        // this._player.setGravityY(gravity);
+        this._player.setGravityY(gravity);
 
         // Create animations
         anims.create({
@@ -42,13 +45,13 @@ export class GerasPlayer {
         });
     }
 
-    animateLeft() {
-        this._player.setVelocityX(-160);
+    animateLeft(velocity = 160) {
+        this._player.setVelocityX(-velocity);
         this._player.anims.play('left', true);
     }
 
-    animateRight() {
-        this._player.setVelocityX(160);
+    animateRight(velocity = 160) {
+        this._player.setVelocityX(velocity);
         this._player.anims.play('right', true);
     }
 

@@ -1,24 +1,23 @@
-import { Level1 } from '../level1';
 import { WORLD_CONSTANTS } from '../../constants/world-constants';
+import { Level3 } from '../level3';
 
-export class IntroLevel1 extends Phaser.Scene {
-    public static key: string = 'intro-level1';
+export class IntroLevel3 extends Phaser.Scene {
+    public static key: string = 'intro-level3';
+    private readonly _animationDuration = 3000;
 
     constructor() {
-        super(IntroLevel1.key);
+        super(IntroLevel3.key);
     }
-
-    private readonly _animationDuration = 3000;
 
     create() {
         this.add
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'You got old👵\nNot so much power left in you',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 74,
+                    fontSize: 40,
                     color: '#F4A259',
                     align: 'center',
                 },
@@ -31,10 +30,10 @@ export class IntroLevel1 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'You got old👵\nNot so much power left in you',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 74,
+                    fontSize: 40,
                     color: '#5B8E7D',
                     align: 'center',
                 },
@@ -47,8 +46,8 @@ export class IntroLevel1 extends Phaser.Scene {
         setTimeout(() => {
             this.input.once(
                 'pointerdown',
-                () => {
-                    this.scene.start(Level1.key);
+                function () {
+                    this.scene.start(Level3.key);
                 },
                 this,
             );
