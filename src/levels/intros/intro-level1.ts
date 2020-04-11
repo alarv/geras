@@ -15,7 +15,7 @@ export class IntroLevel1 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'Geras\nΓῆρας\n(= Ageing)',
                 {
                     fontFamily: 'Arial Black',
                     fontSize: 74,
@@ -31,7 +31,7 @@ export class IntroLevel1 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'Geras\nΓῆρας',
+                'Geras\nΓῆρας\n(= Ageing)',
                 {
                     fontFamily: 'Arial Black',
                     fontSize: 74,
