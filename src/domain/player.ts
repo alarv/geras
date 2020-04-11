@@ -53,7 +53,7 @@ export class GerasPlayer {
     }
 
     animateUp() {
-        this._player.setVelocityY(-500);
+        this._player.setVelocityY(-530);
     }
 
     stayStill() {

@@ -27,7 +27,11 @@ export class Level1 extends Phaser.Scene {
     }
 
     create() {
-        const platforms = PlatformCreator.createPlatform(this, this.physics);
+        const platforms = PlatformCreator.createPlatform(
+            this,
+            this.physics,
+            Level1.key,
+        );
 
         this.gerasPlayer = new GerasPlayer(
             PLAYER_KEY,
@@ -40,21 +44,16 @@ export class Level1 extends Phaser.Scene {
     }
 
     update() {
-        if (this.gerasPlayer.getPosition().x < 500) {
-            this.gerasPlayer.animateUp();
+        if (this.cursors.left.isDown) {
+            this.gerasPlayer.animateLeft();
+        } else if (this.cursors.right.isDown) {
             this.gerasPlayer.animateRight();
+        } else {
+            this.gerasPlayer.stayStill();
         }
 
-        // if (this.cursors.left.isDown) {
-        //     this.gerasPlayer.animateLeft();
-        // } else if (this.cursors.right.isDown) {
-        //     this.gerasPlayer.animateRight();
-        // } else {
-        //     this.gerasPlayer.stayStill();
-        // }
-        //
-        // if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
-        //     this.gerasPlayer.animateJump();
-        // }
+        if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
+            this.gerasPlayer.animateUp();
+        }
     }
 }

@@ -3,11 +3,15 @@ import { PlatformCreator } from '../platform/platform-creator';
 
 const PLAYER_KEY = 'dude';
 
+/**
+ * The player is drunk
+ */
 export class Level2 extends Phaser.Scene {
     public static key: string = 'level2';
 
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private gerasPlayer: GerasPlayer;
+    private randomNumber: number;
     constructor() {
         super(Level2.key);
     }
@@ -25,7 +29,11 @@ export class Level2 extends Phaser.Scene {
     }
 
     public create() {
-        const platforms = PlatformCreator.createPlatform(this, this.physics);
+        const platforms = PlatformCreator.createPlatform(
+            this,
+            this.physics,
+            Level2.key,
+        );
 
         this.gerasPlayer = new GerasPlayer(
             PLAYER_KEY,
@@ -35,9 +43,26 @@ export class Level2 extends Phaser.Scene {
         );
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.gerasPlayer.animateRight();
+        setInterval(() => {
+            this.randomNumber = Math.random();
+        }, 500);
     }
 
     public update() {
+        const drunkMovement = this.randomNumber < 0.4;
+
+        if (drunkMovement) {
+            if (this.randomNumber < 0.2) {
+                this.gerasPlayer.animateRight();
+            } else if (this.randomNumber < 0.4) {
+                this.gerasPlayer.animateLeft();
+            }
+
+            return;
+        }
+
         if (this.cursors.left.isDown) {
             this.gerasPlayer.animateLeft();
         } else if (this.cursors.right.isDown) {
@@ -46,7 +71,7 @@ export class Level2 extends Phaser.Scene {
             this.gerasPlayer.stayStill();
         }
 
-        if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
+        if (this.gerasPlayer.isOnGround() && this.cursors.up.isDown) {
             this.gerasPlayer.animateUp();
         }
     }

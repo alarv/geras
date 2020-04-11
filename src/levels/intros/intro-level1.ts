@@ -12,11 +12,6 @@ export class IntroLevel1 extends Phaser.Scene {
 
     preload() {
         this.load.image('sky', 'assets/sky.background');
-        this.load.bitmapFont(
-            'desyrel',
-            'assets/fonts/bitmapFonts/desyrel.png',
-            'assets/fonts/bitmapFonts/desyrel.xml',
-        );
     }
 
     private readonly _animationDuration = 3000;
