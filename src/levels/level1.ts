@@ -1,17 +1,22 @@
 import { GerasPlayer } from '../domain/player';
+import { WORLD_CONSTANTS } from '../constants/world-constants';
+import { PlatformCreator } from '../platform/platform-creator';
 
 const PLAYER_KEY = 'dude';
 
 export class Level1 extends Phaser.Scene {
+    public static key: string = 'level1';
+
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private gerasPlayer: GerasPlayer;
+
     constructor() {
-        super('level1');
+        super(Level1.key);
     }
 
     preload() {
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('ground', 'assets/platform.png');
+        this.load.image('sky', 'assets/background.png');
+        this.load.image('ground', 'assets/tile-middle.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('bomb', 'assets/bomb.png');
 
@@ -22,38 +27,34 @@ export class Level1 extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(400, 300, 'sky');
-
-        const platforms = this.physics.add.staticGroup();
-
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-        platforms.create(600, 400, 'ground');
-        platforms.create(50, 250, 'ground');
-        platforms.create(750, 220, 'ground');
+        const platforms = PlatformCreator.createPlatform(this, this.physics);
 
         this.gerasPlayer = new GerasPlayer(
+            PLAYER_KEY,
             this.physics,
             this.anims,
-            PLAYER_KEY
+            platforms,
         );
-
-        this.physics.add.collider(this.gerasPlayer.player, platforms);
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     update() {
-        if (this.cursors.left.isDown) {
-            this.gerasPlayer.animateLeft();
-        } else if (this.cursors.right.isDown) {
+        if (this.gerasPlayer.getPosition().x < 500) {
+            this.gerasPlayer.animateUp();
             this.gerasPlayer.animateRight();
-        } else {
-            this.gerasPlayer.stayStill();
         }
 
-        if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
-            this.gerasPlayer.animateJump();
-        }
+        // if (this.cursors.left.isDown) {
+        //     this.gerasPlayer.animateLeft();
+        // } else if (this.cursors.right.isDown) {
+        //     this.gerasPlayer.animateRight();
+        // } else {
+        //     this.gerasPlayer.stayStill();
+        // }
+        //
+        // if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
+        //     this.gerasPlayer.animateJump();
+        // }
     }
 }

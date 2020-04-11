@@ -1,18 +1,18 @@
 export class GerasPlayer {
     private readonly _player: Phaser.Physics.Arcade.Sprite;
 
-    get player(): Phaser.Physics.Arcade.Sprite {
-        return this._player;
-    }
-
     constructor(
+        playerKey: string,
         physics: Phaser.Physics.Arcade.ArcadePhysics,
         anims: Phaser.Animations.AnimationManager,
-        playerKey: string
+        platforms: Phaser.Physics.Arcade.StaticGroup,
+        gravity: number = 300,
     ) {
         this._player = physics.add.sprite(100, 450, playerKey);
         this._player.setBounce(0.2);
         this._player.setCollideWorldBounds(true);
+        physics.add.collider(this._player, platforms);
+        // this._player.setGravityY(gravity);
 
         // Create animations
         anims.create({
@@ -52,6 +52,10 @@ export class GerasPlayer {
         this._player.anims.play('right', true);
     }
 
+    animateUp() {
+        this._player.setVelocityY(-500);
+    }
+
     stayStill() {
         this._player.setVelocityX(0);
         this._player.anims.play('turn');
@@ -61,7 +65,7 @@ export class GerasPlayer {
         return this._player.body.touching.down;
     }
 
-    animateJump() {
-        this._player.setVelocityY(-330);
+    getPosition() {
+        return this._player.body.position;
     }
 }
