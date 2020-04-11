@@ -14,7 +14,7 @@ export class IntroLevel3 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'You got old👵\nNot so much power left in you',
+                'You got old👵\nNot so much power \nleft in you',
                 {
                     fontFamily: 'Arial Black',
                     fontSize: 40,
@@ -30,7 +30,7 @@ export class IntroLevel3 extends Phaser.Scene {
             .text(
                 WORLD_CONSTANTS.WIDTH / 2,
                 WORLD_CONSTANTS.HEIGHT / 2,
-                'You got old👵\nNot so much power left in you',
+                'You got old👵\nNot so much power \nleft in you',
                 {
                     fontFamily: 'Arial Black',
                     fontSize: 40,

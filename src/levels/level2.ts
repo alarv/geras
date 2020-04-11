@@ -16,7 +16,7 @@ export class Level2 extends Phaser.Scene {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private gerasPlayer: GerasPlayer;
     private randomNumber: number;
-    private readonly drunkPossibility = 0.4;
+    private readonly drunkPossibility = 0.5;
     private currentTextCount = 0;
     private maxTextCount = 50;
 

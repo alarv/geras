@@ -16,7 +16,7 @@ export class TheEnd extends Phaser.Scene {
                 'THE END\nYou died \nfrom coronavirus',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 70,
+                    fontSize: 60,
                     color: '#F4A259',
                     align: 'center',
                 },
@@ -32,7 +32,7 @@ export class TheEnd extends Phaser.Scene {
                 'THE END\nYou died \nfrom coronavirus',
                 {
                     fontFamily: 'Arial Black',
-                    fontSize: 70,
+                    fontSize: 60,
                     color: '#5B8E7D',
                     align: 'center',
                 },
