@@ -1,6 +1,6 @@
 # Geras
 
-Geras /ˈdʒɪərəs/ (Ancient Greek: Γῆρας, romanized: Gễras, meaning Ageing) is a game about ageing made with Phaser 3.
+Geras /ˈdʒɪərəs/ (Ancient Greek: Γῆρας, romanized: Gễras, meaning Ageing) is a game about ageing made with Phaser 3 that I developed during the 2020 Covid-19 Quarantine.
 
 ## Requirements
 
