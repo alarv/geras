@@ -20,7 +20,7 @@ const ENEMY_COORDINATES = [
     {
         x: PlatformCreator.getBottomRightPlatformCenterX(),
         y: PlatformCreator.getBottomRightPlatformCenterY() - 50,
-        distanceXFromCenter: 170,
+        distanceXFromCenter: 190,
     },
 ];
 

@@ -64,17 +64,16 @@ export class GerasEnemy {
     }
 
     update() {
-        this._enemy.refreshBody();
         if (
             this._enemy.body.position.x <
                 this.positionX - this.distanceXFromCenter ||
-            this._enemy.body.position.x - 50 < 0
+            this._enemy.body.position.x - 40 < 0
         ) {
             this.animateRight();
         } else if (
             this._enemy.body.position.x >
                 this.positionX + this.distanceXFromCenter ||
-            this._enemy.body.position.x + 50 > WORLD_CONSTANTS.WIDTH
+            this._enemy.body.position.x + 40 > WORLD_CONSTANTS.WIDTH
         ) {
             this.animateLeft();
         }
