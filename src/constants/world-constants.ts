@@ -1,6 +1,6 @@
 export const WORLD_CONSTANTS = {
-    WIDTH: 648,
-    HEIGHT: 648,
-    TILE_WIDTH: 98,
-    TILE_HEIGHT: 98,
+    WIDTH: 600,
+    HEIGHT: 600,
+    TILE_WIDTH: 50,
+    TILE_HEIGHT: 50,
 };

@@ -1,25 +1,29 @@
 import 'phaser';
-import { Level1 } from './levels/level1';
-import { Level2 } from './levels/level2';
 import GameConfig = Phaser.Types.Core.GameConfig;
-import { IntroLevel1 } from './levels/intros/intro-level1';
 import { WORLD_CONSTANTS } from './constants/world-constants';
+import { LoadingScreen } from './loading-screen';
+import { IntroLevel1 } from './levels/intros/intro-level1';
+import { Level1 } from './levels/level1';
 import { IntroLevel2 } from './levels/intros/intro-level2';
+import { Level2 } from './levels/level2';
+import { IntroLevel4 } from './levels/intros/intro-level4';
+import { Level4 } from './levels/level4';
 import { TheEnd } from './levels/the-end';
 import { Level3 } from './levels/level3';
-import { IntroLevel3 } from './levels/intros/intro-level3';
 
+const urlParams = new URLSearchParams(window.location.search);
+const level = urlParams.get('level');
 const scenes = [
+    LoadingScreen,
     IntroLevel1,
     Level1,
     IntroLevel2,
     Level2,
-    IntroLevel3,
     Level3,
+    IntroLevel4,
+    Level4,
     TheEnd,
 ];
-const urlParams = new URLSearchParams(window.location.search);
-const level = urlParams.get('level');
 
 const config: GameConfig = {
     type: Phaser.AUTO,
@@ -38,4 +42,4 @@ const config: GameConfig = {
 };
 
 const game = new Phaser.Game(config);
-game.scene.start(level || IntroLevel1.key);
+game.scene.start(level || LoadingScreen.key);

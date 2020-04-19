@@ -1,16 +1,16 @@
 import { GerasPlayer } from '../domain/player';
 import { PlatformCreator } from '../platform/platform-creator';
 import { WORLD_CONSTANTS } from '../constants/world-constants';
-import { IntroLevel1 } from './intros/intro-level1';
-import { TheEnd } from './the-end';
-import { IntroLevel3 } from './intros/intro-level3';
+import { IntroLevel4 } from './intros/intro-level4';
+import { Level3 } from './level3';
+import { GerasScene } from '../domain/scene';
 
 const PLAYER_KEY = 'dude';
 
 /**
  * The player is drunk
  */
-export class Level2 extends Phaser.Scene {
+export class Level2 extends GerasScene {
     public static key: string = 'level2';
 
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -87,6 +87,13 @@ export class Level2 extends Phaser.Scene {
     public update() {
         const drunkMovement = this.randomNumber < this.drunkPossibility;
 
+        if (
+            this.gerasPlayer.isOnGround() &&
+            (this.cursors.up.isDown || this.cursors.space.isDown)
+        ) {
+            this.gerasPlayer.animateUp();
+        }
+
         if (drunkMovement) {
             if (this.randomNumber < this.drunkPossibility / 2) {
                 this.gerasPlayer.animateRight();
@@ -104,16 +111,16 @@ export class Level2 extends Phaser.Scene {
         } else {
             this.gerasPlayer.stayStill();
         }
-
-        if (this.gerasPlayer.isOnGround() && this.cursors.up.isDown) {
-            this.gerasPlayer.animateUp();
-        }
     }
 
     private collectIcon(taxi) {
         taxi.disableBody(true, true);
         setTimeout(() => {
-            this.scene.start(IntroLevel3.key);
+            this.sceneFinished();
         });
+    }
+
+    sceneFinished(): void {
+        this.scene.start(Level3.key);
     }
 }

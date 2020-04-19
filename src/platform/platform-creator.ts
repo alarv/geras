@@ -6,16 +6,21 @@ export class PlatformCreator {
         physics: Phaser.Physics.Arcade.ArcadePhysics,
         levelKey: string = '',
     ): Phaser.Physics.Arcade.StaticGroup {
-        scene.add.image(324, 324, 'sky');
+        scene.add.image(
+            WORLD_CONSTANTS.WIDTH / 2,
+            WORLD_CONSTANTS.HEIGHT / 2,
+            'sky',
+        );
 
         const platforms = physics.add.staticGroup();
 
         this.createGround(platforms);
 
-        this.createTopRightPlatform(platforms);
-        this.createMiddleLeftPlatform(platforms);
         this.createBottomRightPlatform(platforms);
+        this.createMiddleLeftPlatform(platforms);
+        this.createTopRightPlatform(platforms);
 
+        // uncomment for debugging
         scene.add.text(0, 0, levelKey, {
             fontFamily: '"Roboto Condensed"',
         });
@@ -28,13 +33,20 @@ export class PlatformCreator {
     ) {
         platforms
             .create(
-                WORLD_CONSTANTS.WIDTH - WORLD_CONSTANTS.TILE_WIDTH / 2,
-                (6 * WORLD_CONSTANTS.HEIGHT) / 8 -
-                    WORLD_CONSTANTS.TILE_HEIGHT / 2,
+                PlatformCreator.getBottomRightPlatformCenterX(),
+                PlatformCreator.getBottomRightPlatformCenterY(),
                 'ground',
             )
-            .setScale(5, 0.5)
+            .setScale(4, 0.5)
             .refreshBody();
+    }
+
+    public static getBottomRightPlatformCenterX() {
+        return 10 * WORLD_CONSTANTS.TILE_WIDTH;
+    }
+
+    public static getBottomRightPlatformCenterY() {
+        return 8 * WORLD_CONSTANTS.TILE_HEIGHT;
     }
 
     private static createMiddleLeftPlatform(
@@ -42,13 +54,20 @@ export class PlatformCreator {
     ) {
         platforms
             .create(
-                WORLD_CONSTANTS.TILE_WIDTH / 2,
-                (4 * WORLD_CONSTANTS.HEIGHT) / 8 -
-                    WORLD_CONSTANTS.TILE_HEIGHT / 2,
+                PlatformCreator.getMiddleLeftPlatformCenterX(),
+                PlatformCreator.getMiddleLeftPlatformCenterY(),
                 'ground',
             )
-            .setScale(5, 0.5)
+            .setScale(4, 0.5)
             .refreshBody();
+    }
+
+    public static getMiddleLeftPlatformCenterX() {
+        return 2 * WORLD_CONSTANTS.TILE_WIDTH;
+    }
+
+    public static getMiddleLeftPlatformCenterY() {
+        return 5 * WORLD_CONSTANTS.TILE_HEIGHT;
     }
 
     private static createTopRightPlatform(
@@ -56,13 +75,20 @@ export class PlatformCreator {
     ) {
         platforms
             .create(
-                WORLD_CONSTANTS.WIDTH - WORLD_CONSTANTS.TILE_WIDTH / 2,
-                (2 * WORLD_CONSTANTS.HEIGHT) / 8 -
-                    WORLD_CONSTANTS.TILE_HEIGHT / 2,
+                PlatformCreator.getTopRightPlatformCenterX(),
+                PlatformCreator.getTopRightPlatformCenterY(),
                 'ground',
             )
-            .setScale(5, 0.5)
+            .setScale(4, 0.5)
             .refreshBody();
+    }
+
+    public static getTopRightPlatformCenterX() {
+        return 10 * WORLD_CONSTANTS.TILE_WIDTH;
+    }
+
+    public static getTopRightPlatformCenterY() {
+        return 2 * WORLD_CONSTANTS.TILE_HEIGHT;
     }
 
     private static createGround(platforms: Phaser.Physics.Arcade.StaticGroup) {

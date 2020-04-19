@@ -1,23 +1,48 @@
 import { GerasPlayer } from '../domain/player';
 import { PlatformCreator } from '../platform/platform-creator';
 import { WORLD_CONSTANTS } from '../constants/world-constants';
-import { TheEnd } from './the-end';
+import { IntroLevel4 } from './intros/intro-level4';
+import { GerasScene } from '../domain/scene';
+import { GerasEnemy } from '../domain/enemy';
 
 const PLAYER_KEY = 'dude';
+const ENEMY_COORDINATES = [
+    {
+        x: WORLD_CONSTANTS.WIDTH / 2,
+        y: WORLD_CONSTANTS.HEIGHT - 150,
+        distanceXFromCenter: WORLD_CONSTANTS.WIDTH / 2,
+    },
+    {
+        x: PlatformCreator.getMiddleLeftPlatformCenterX(),
+        y: PlatformCreator.getMiddleLeftPlatformCenterY() - 50,
+        distanceXFromCenter: 170,
+    },
+    {
+        x: PlatformCreator.getBottomRightPlatformCenterX(),
+        y: PlatformCreator.getBottomRightPlatformCenterY() - 50,
+        distanceXFromCenter: 170,
+    },
+];
 
-export class Level3 extends Phaser.Scene {
+/**
+ * Player wants to go to bed and controls are changed
+ * They also need to avoid the enemies
+ */
+export class Level3 extends GerasScene {
     public static key: string = 'level3';
 
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private gerasPlayer: GerasPlayer;
+    private gerasEnemies: GerasEnemy[] = [];
 
     constructor() {
         super(Level3.key);
     }
+
     preload() {
         this.load.image('sky', 'assets/background.png');
         this.load.image('ground', 'assets/tile-middle.png');
-        this.load.image('coronavirus', 'assets/coronavirus.png');
+        this.load.image('bunk-bed', 'assets/bunk-bed.png');
 
         this.load.spritesheet(PLAYER_KEY, 'assets/dude.png', {
             frameWidth: 32,
@@ -37,28 +62,46 @@ export class Level3 extends Phaser.Scene {
             this.physics,
             this.anims,
             platforms,
-            800,
+        );
+
+        this.gerasEnemies = ENEMY_COORDINATES.map(
+            ({ x, y, distanceXFromCenter }, index) =>
+                new GerasEnemy(
+                    `enemy-${index}`,
+                    this,
+                    platforms,
+                    x,
+                    y,
+                    distanceXFromCenter,
+                ),
         );
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        const coronavirus = this.physics.add.group({
-            key: 'coronavirus',
+        const bed = this.physics.add.group({
+            key: 'bunk-bed',
             setXY: {
                 x: WORLD_CONSTANTS.WIDTH - WORLD_CONSTANTS.TILE_WIDTH,
-                y: WORLD_CONSTANTS.HEIGHT - WORLD_CONSTANTS.TILE_HEIGHT * 2,
+                y: 0,
                 stepX: 70,
             },
             bounceY: Phaser.Math.FloatBetween(0.4, 0.8),
-            velocityX: -50,
         });
 
-        this.physics.add.collider(coronavirus, platforms);
+        this.physics.add.collider(bed, platforms);
 
         this.physics.add.overlap(
             this.gerasPlayer.player,
-            coronavirus,
+            bed,
             this.collectIcon,
+            null,
+            this,
+        );
+
+        this.physics.add.overlap(
+            this.gerasPlayer.player,
+            this.gerasEnemies.map((gerasEnemy) => gerasEnemy.enemy),
+            this.lost,
             null,
             this,
         );
@@ -66,20 +109,41 @@ export class Level3 extends Phaser.Scene {
 
     update() {
         if (this.cursors.left.isDown) {
-            this.gerasPlayer.animateLeft(50);
-        } else if (this.cursors.right.isDown) {
-            this.gerasPlayer.animateRight(50);
+            this.gerasPlayer.animateRight();
+        } else if (this.cursors.up.isDown) {
+            this.gerasPlayer.animateLeft();
         } else {
             this.gerasPlayer.stayStill();
         }
 
-        if (this.cursors.up.isDown && this.gerasPlayer.isOnGround()) {
+        if (this.cursors.right.isDown && this.gerasPlayer.isOnGround()) {
             this.gerasPlayer.animateUp();
         }
+
+        this.gerasEnemies.forEach((enemy) => enemy.update());
     }
 
     private collectIcon(player, star) {
         star.disableBody(true, true);
-        this.scene.start(TheEnd.key);
+        this.sceneFinished();
+    }
+
+    sceneFinished(): void {
+        this.scene.start(IntroLevel4.key);
+    }
+
+    private lost() {
+        // shake the camera
+        this.cameras.main.shake(500);
+
+        // restart game
+        this.time.delayedCall(
+            500,
+            function () {
+                this.scene.restart();
+            },
+            [],
+            this,
+        );
     }
 }

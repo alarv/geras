@@ -1,12 +1,13 @@
 import { WORLD_CONSTANTS } from '../../constants/world-constants';
-import { Level3 } from '../level3';
+import { Level4 } from '../level4';
+import { GerasScene } from '../../domain/scene';
+import { GerasIntroScene } from './intro';
 
-export class IntroLevel3 extends Phaser.Scene {
-    public static key: string = 'intro-level3';
-    private readonly _animationDuration = 3000;
+export class IntroLevel4 extends GerasIntroScene {
+    public static key: string = 'intro-level4';
 
     constructor() {
-        super(IntroLevel3.key);
+        super(IntroLevel4.key);
     }
 
     create() {
@@ -41,16 +42,11 @@ export class IntroLevel3 extends Phaser.Scene {
             .setStroke('#F4A259', 16)
             .setOrigin(0.5);
 
-        this.cameras.main.fadeIn(this._animationDuration);
+        this.fadeIn();
+        this.addListeners();
+    }
 
-        setTimeout(() => {
-            this.input.once(
-                'pointerdown',
-                function () {
-                    this.scene.start(Level3.key);
-                },
-                this,
-            );
-        }, this._animationDuration);
+    sceneFinished(): void {
+        this.scene.start(Level4.key);
     }
 }

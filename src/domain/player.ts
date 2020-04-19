@@ -5,11 +5,11 @@ export class GerasPlayer {
     }
 
     constructor(
-        playerKey: string,
-        physics: Phaser.Physics.Arcade.ArcadePhysics,
-        anims: Phaser.Animations.AnimationManager,
-        platforms: Phaser.Physics.Arcade.StaticGroup,
-        gravity: number = 0,
+        private readonly playerKey: string,
+        private readonly physics: Phaser.Physics.Arcade.ArcadePhysics,
+        private readonly anims: Phaser.Animations.AnimationManager,
+        private readonly platforms: Phaser.Physics.Arcade.StaticGroup,
+        private readonly gravity: number = 0,
     ) {
         this._player = physics.add.sprite(100, 450, playerKey);
         this._player.setBounce(0.2);
@@ -66,9 +66,5 @@ export class GerasPlayer {
 
     isOnGround() {
         return this._player.body.touching.down;
-    }
-
-    getPosition() {
-        return this._player.body.position;
     }
 }

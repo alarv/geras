@@ -1,25 +1,24 @@
 import { GerasPlayer } from '../domain/player';
 import { PlatformCreator } from '../platform/platform-creator';
 import { WORLD_CONSTANTS } from '../constants/world-constants';
-import { IntroLevel2 } from './intros/intro-level2';
+import { TheEnd } from './the-end';
 import { GerasScene } from '../domain/scene';
 
 const PLAYER_KEY = 'dude';
 
-export class Level1 extends GerasScene {
-    public static key: string = 'level1';
+export class Level4 extends GerasScene {
+    public static key: string = 'level4';
 
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private gerasPlayer: GerasPlayer;
 
     constructor() {
-        super(Level1.key);
+        super(Level4.key);
     }
-
     preload() {
         this.load.image('sky', 'assets/background.png');
         this.load.image('ground', 'assets/tile-middle.png');
-        this.load.image('baby-bottle', 'assets/baby-bottle.png');
+        this.load.image('coronavirus', 'assets/coronavirus.png');
 
         this.load.spritesheet(PLAYER_KEY, 'assets/dude.png', {
             frameWidth: 32,
@@ -31,7 +30,7 @@ export class Level1 extends GerasScene {
         const platforms = PlatformCreator.createPlatform(
             this,
             this.physics,
-            Level1.key,
+            Level4.key,
         );
 
         this.gerasPlayer = new GerasPlayer(
@@ -39,25 +38,27 @@ export class Level1 extends GerasScene {
             this.physics,
             this.anims,
             platforms,
+            800,
         );
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        const babyBottle = this.physics.add.group({
-            key: 'baby-bottle',
+        const coronavirus = this.physics.add.group({
+            key: 'coronavirus',
             setXY: {
                 x: WORLD_CONSTANTS.WIDTH - WORLD_CONSTANTS.TILE_WIDTH,
-                y: 0,
+                y: WORLD_CONSTANTS.HEIGHT - WORLD_CONSTANTS.TILE_HEIGHT * 2,
                 stepX: 70,
             },
             bounceY: Phaser.Math.FloatBetween(0.4, 0.8),
+            velocityX: -50,
         });
 
-        this.physics.add.collider(babyBottle, platforms);
+        this.physics.add.collider(coronavirus, platforms);
 
         this.physics.add.overlap(
             this.gerasPlayer.player,
-            babyBottle,
+            coronavirus,
             this.collectIcon,
             null,
             this,
@@ -66,9 +67,9 @@ export class Level1 extends GerasScene {
 
     update() {
         if (this.cursors.left.isDown) {
-            this.gerasPlayer.animateLeft();
+            this.gerasPlayer.animateLeft(50);
         } else if (this.cursors.right.isDown) {
-            this.gerasPlayer.animateRight();
+            this.gerasPlayer.animateRight(50);
         } else {
             this.gerasPlayer.stayStill();
         }
@@ -87,6 +88,6 @@ export class Level1 extends GerasScene {
     }
 
     sceneFinished(): void {
-        this.scene.start(IntroLevel2.key);
+        this.scene.start(TheEnd.key);
     }
 }
