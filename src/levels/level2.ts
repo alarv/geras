@@ -4,6 +4,7 @@ import { WORLD_CONSTANTS } from '../constants/world-constants';
 import { IntroLevel4 } from './intros/intro-level4';
 import { Level3 } from './level3';
 import { GerasScene } from '../domain/scene';
+import { IntroLevel3 } from './intros/intro-level3';
 
 const PLAYER_KEY = 'dude';
 
@@ -121,6 +122,6 @@ export class Level2 extends GerasScene {
     }
 
     sceneFinished(): void {
-        this.scene.start(Level3.key);
+        this.scene.start(IntroLevel3.key);
     }
 }

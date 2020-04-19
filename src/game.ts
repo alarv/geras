@@ -10,6 +10,7 @@ import { IntroLevel4 } from './levels/intros/intro-level4';
 import { Level4 } from './levels/level4';
 import { TheEnd } from './levels/the-end';
 import { Level3 } from './levels/level3';
+import { IntroLevel3 } from './levels/intros/intro-level3';
 
 const urlParams = new URLSearchParams(window.location.search);
 const level = urlParams.get('level');
@@ -19,6 +20,7 @@ const scenes = [
     Level1,
     IntroLevel2,
     Level2,
+    IntroLevel3,
     Level3,
     IntroLevel4,
     Level4,

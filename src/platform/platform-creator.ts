@@ -21,9 +21,9 @@ export class PlatformCreator {
         this.createTopRightPlatform(platforms);
 
         // uncomment for debugging
-        scene.add.text(0, 0, levelKey, {
-            fontFamily: '"Roboto Condensed"',
-        });
+        // scene.add.text(0, 0, levelKey, {
+        //     fontFamily: '"Roboto Condensed"',
+        // });
 
         return platforms;
     }

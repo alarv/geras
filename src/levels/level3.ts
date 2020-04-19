@@ -67,7 +67,7 @@ export class Level3 extends GerasScene {
         this.gerasEnemies = ENEMY_COORDINATES.map(
             ({ x, y, distanceXFromCenter }, index) =>
                 new GerasEnemy(
-                    `enemy-${index}`,
+                    PLAYER_KEY,
                     this,
                     platforms,
                     x,
